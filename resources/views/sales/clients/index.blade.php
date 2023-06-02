@@ -77,13 +77,8 @@
             lineeeas += '<select class="form-select form-select-sm ops" id="combo_' + i +
                 '"  onchange="cambioTipo(this.value, ' + i + ')" name="opts[]">'
             for (let d = 0; d < keeys.length; d++) {
-                lineeeas += `<optgroup label="${keeys[d]}">`
-                for (let f = 0; f < Object.keys(tablax[keeys[d]]).length; f++) {
-                    let keyr = Object.keys(tablax[keeys[d]])[f];
-                    lineeeas += `<option>${Object.keys(tablax[keeys[d]])[f]}</option>`;
-                }
-
-            }
+                lineeeas += `<option>${keeys[d]}</option>`
+                            }
             lineeeas += `</select>`;
             cell2.innerHTML = lineeeas;
             cell3.innerHTML =
@@ -178,6 +173,10 @@
 
         function cambioTipo(tipo, count) {
             var datax = @json($data);
+            var pro = @json($tablas)
+
+            console.log(pro)
+            
             if (tipo == 'monto') {
                 var table = document.getElementById("myTable");
                 nuevoTd = document.createElement("td");
@@ -191,21 +190,23 @@
                 document.getElementById('valor_' + count).name = 'min'
             }
 
-            if (datax.hasOwnProperty(tipo) == true) {
-                switch (datax[tipo]) {
+            if (pro.hasOwnProperty(tipo) == true) {
+                switch (pro[tipo]) {
                     case 'integer':
                         document.getElementById('valor_' + count).type = 'number'
                         break;
-
-                    case 'bigint':
-                        document.getElementById('valor_' + count).type = 'number'
+                    case 'email':
+                        document.getElementById('valor_' + count).type = 'email'
                         break;
-
+                    case 'date':
+                        document.getElementById('valor_' + count).type = 'date'
+                        break;
                     default:
                         document.getElementById('valor_' + count).type = 'text'
                         break;
                 }
             }
+            
         }
 
         function listaClientes(id_cliente) {
@@ -273,6 +274,40 @@
             key = e.keyCode || e.which;
             tecla = String.fromCharCode(key).toLowerCase();
             letras = "0123456789";
+            especiales = [];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+        function validoEmail(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = "0123456789abcdefghijklmnopqrstuvwxyz@.";
+            especiales = [];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+        function validoLetras(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = "abcdefghijklmnopqrstuvwxyz";
             especiales = [];
 
             tecla_especial = false

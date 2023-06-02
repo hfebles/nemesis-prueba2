@@ -39,63 +39,100 @@ class ClientController extends Controller
         $compania = Compania::all();
         
 
-            $tiposTdsClientes = array();
-            $tiposTdsDatos = array();
-            $tiposTdsRegiones = array();
-            $tiposTdsMuicipios = array();
-            $tiposTdsComunas = array();
+            // $tiposTdsClientes = array();
+            // $tiposTdsDatos = array();
+            // $tiposTdsRegiones = array();
+            // $tiposTdsMuicipios = array();
+            // $tiposTdsComunas = array();
 
 
-            $tds_clientes = DB::getSchemaBuilder()->getColumnListing('clients');
-            foreach($tds_clientes as $k => $tds){
-                $tiposTdsClientes[$k] = DB::getSchemaBuilder()->getColumnType('clients', $tds);
-            }
-            $tds_combine_cliente = array_combine($tds_clientes, $tiposTdsClientes);
-
-
-
-
-            $tds_datos = DB::getSchemaBuilder()->getColumnListing('datos');
-            foreach($tds_datos as $k => $tds){
-                $tiposTdsDatos[$k] = DB::getSchemaBuilder()->getColumnType('datos', $tds);
-            }
-            $tds_combine_datos = array_combine($tds_datos, $tiposTdsDatos);
+            // $tds_clientes = DB::getSchemaBuilder()->getColumnListing('clients');
+            // foreach($tds_clientes as $k => $tds){
+            //     $tiposTdsClientes[$k] = DB::getSchemaBuilder()->getColumnType('clients', $tds);
+            // }
+            // $tds_combine_cliente = array_combine($tds_clientes, $tiposTdsClientes);
 
 
 
 
-            $tds_regiones = DB::getSchemaBuilder()->getColumnListing('estados');
-            foreach($tds_regiones as $k => $tds){
-                $tiposTdsRegiones[$k] = DB::getSchemaBuilder()->getColumnType('estados', $tds);
-            }
-            $tds_combine_regiones = array_combine($tds_regiones, $tiposTdsRegiones);
+            // $tds_datos = DB::getSchemaBuilder()->getColumnListing('datos');
+            // foreach($tds_datos as $k => $tds){
+            //     $tiposTdsDatos[$k] = DB::getSchemaBuilder()->getColumnType('datos', $tds);
+            // }
+            // $tds_combine_datos = array_combine($tds_datos, $tiposTdsDatos);
 
 
 
 
-            $tds_municipios = DB::getSchemaBuilder()->getColumnListing('municipios');
-            foreach($tds_municipios as $k => $tds){
-                $tiposTdsMuicipios[$k] = DB::getSchemaBuilder()->getColumnType('municipios', $tds);
-            }
-            $tds_combine_municipios = array_combine($tds_municipios, $tiposTdsMuicipios);
+            // $tds_regiones = DB::getSchemaBuilder()->getColumnListing('estados');
+            // foreach($tds_regiones as $k => $tds){
+            //     $tiposTdsRegiones[$k] = DB::getSchemaBuilder()->getColumnType('estados', $tds);
+            // }
+            // $tds_combine_regiones = array_combine($tds_regiones, $tiposTdsRegiones);
 
 
 
 
-            $tds_comunas = DB::getSchemaBuilder()->getColumnListing('ciudades');
-            foreach($tds_comunas as $k => $tds){
-                $tiposTdsComunas[$k] = DB::getSchemaBuilder()->getColumnType('ciudades', $tds);
-            }
-            $tds_combine_comunas = array_combine($tds_comunas, $tiposTdsComunas);
+            // $tds_municipios = DB::getSchemaBuilder()->getColumnListing('municipios');
+            // foreach($tds_municipios as $k => $tds){
+            //     $tiposTdsMuicipios[$k] = DB::getSchemaBuilder()->getColumnType('municipios', $tds);
+            // }
+            // $tds_combine_municipios = array_combine($tds_municipios, $tiposTdsMuicipios);
 
-            $data = array_merge($tds_combine_cliente, $tds_combine_datos, $tds_combine_regiones, $tds_combine_municipios, $tds_combine_comunas);
+
+
+
+            // $tds_comunas = DB::getSchemaBuilder()->getColumnListing('ciudades');
+            // foreach($tds_comunas as $k => $tds){
+            //     $tiposTdsComunas[$k] = DB::getSchemaBuilder()->getColumnType('ciudades', $tds);
+            // }
+            // $tds_combine_comunas = array_combine($tds_comunas, $tiposTdsComunas);
+
+            // //$data = array_merge($tds_combine_cliente, $tds_combine_datos, $tds_combine_regiones, $tds_combine_municipios, $tds_combine_comunas);
+
+            $data = [
+                'name_client', 'idcard_client', 'address_client', 'complement_address_client', 'phone_client', 'phone2_client', 'email_client', 'email2_client', 'personeria', 
+                'id_tipo_doc', 'id_contrato', 'codigo_rnut', 'tipo_doc', 'num_doc', 'fec_emi', 'fec_ven', 'monto', 'interes', 'gasto_cob', 'porc_imp', 'total_doc', 'mora', 'tramo_mora', 'tramo_monto',
+                'estado',
+                'municipio',
+            ];
 
             
-            $tablas = ['clients' => $tds_combine_cliente, 'datos' =>$tds_combine_datos, 'regiones' => $tds_combine_regiones, 'provincias' => $tds_combine_municipios, 'comunas' => $tds_combine_comunas];
+            //$tablas = ['clients' => $tds_combine_cliente, 'datos' =>$tds_combine_datos, 'regiones' => $tds_combine_regiones, 'provincias' => $tds_combine_municipios, 'comunas' => $tds_combine_comunas];
             //return $tablas['clients']['id_client'];
         
+            $tablas = [
+                    'name_client' => 'string', 
+                    'idcard_client' => 'string', 
+                    'address_client' => 'string', 
+                    'complement_address_client' => 'string', 
+                    'phone_client' => 'integer', 
+                    'phone2_client' => 'integer', 
+                    'email_client' => 'email', 
+                    'email2_client' => 'email', 
+                    'personeria' => 'string', 
+                    'id_tipo_doc' => 'integer', 
+                    'id_contrato' => 'integer', 
+                    'codigo_rnut' => 'string', 
+                    'tipo_doc' => 'integer', 
+                    'num_doc' => 'integer', 
+                    'fec_emi' => 'date', 
+                    'fec_ven' => 'date', 
+                    'monto' => 'integer', 
+                    'interes' => 'integer', 
+                    'gasto_cob' => 'integer', 
+                    'porc_imp' => 'integer', 
+                    'total_doc' => 'integer', 
+                    'mora' => 'integer', 
+                    'tramo_mora' => 'string', 
+                    'tramo_monto' => 'string',
+                    'estado' => 'string',
+                    'municipio' => 'string', 
+                    'ciudades' => 'string'
+            ];
+        // return $tablas;
 
-        //return $table;
+        // $data
 
         return view('sales.clients.index', compact('conf', 'data', 'compania', 'tablas'));
     }
@@ -103,38 +140,28 @@ class ClientController extends Controller
     public function filter(Request $request){
 
         $arr = $request->obj;
-
-        //return $arr['min'];
-
         $texto = '';
-
         $akey = array_keys($arr);
 
         foreach($arr as $k => $campos){
-
-
-
             switch ($k) {
+                case 'name_client':
+                    $texto .= $k.' like "%'.$campos.'%" AND ';
+                    break;
                 
                 case 'min':
                     $texto .= 'monto between '.$arr['min'];
                     break;
                 case 'max':
-                    $texto .= ' and '.$arr['max'].' ';
-                    break;
-                case 'name_client':
-                    $texto .= $k.' like "%'.$campos.'%"';
-                    break;
-                case end($akey) == $k:
-                    $texto .= $k.' = "'.$campos.'"';
+                    $texto .= ' AND '.$arr['max'];
                     break;
                 default:
-                    $texto .= $k.' = "'.$campos.'" and ';
+                    $texto .= $k.' = "'.$campos.'" AND ';
                     break;
             }
-
-
         }
+
+        $texto = rtrim($texto, 'AND ');
         
         $query = "SELECT
                 data.id_tipo_doc, data.id_contrato, data.codigo_rnut, data.tipo_doc, data.num_doc, data.fec_emi, data.fec_ven, data.monto, data.interes, data.gasto_cob, data.porc_imp, data.total_doc, data.mora, data.tramo_mora, data.tramo_monto, 
