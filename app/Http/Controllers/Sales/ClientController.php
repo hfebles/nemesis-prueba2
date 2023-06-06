@@ -128,7 +128,7 @@ class ClientController extends Controller
                     'tramo_monto' => 'string',
                     'estado' => 'string',
                     'municipio' => 'string', 
-                    'ciudades' => 'string'
+                    'ciudad' => 'string'
             ];
         // return $tablas;
 

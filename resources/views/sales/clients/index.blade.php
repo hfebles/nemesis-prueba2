@@ -20,12 +20,7 @@
                 <tr>
 
                     <td width="5%" class="align-middle mb-0">
-                        <select class="form-select form-select-sm" name="compania" id="compania">
-                            <option value="">Seleccione</option>
-                            @foreach ($compania as $key => $c)
-                                <option value="{{ $c->id }}">{{ $c->name }}</option>
-                            @endforeach
-                        </select>
+                        
                     </td>
 
                     <td width="10%"><a onclick="addRow()" class="btn btn-info btn-sm btn-block"> Nuevo campo</a></td>
@@ -194,15 +189,25 @@
                 switch (pro[tipo]) {
                     case 'integer':
                         document.getElementById('valor_' + count).type = 'number'
+                        document.getElementById('valor_' + count).focus()
+                        document.getElementById('valor_' + count).setAttribute("onkeypress", "return validoNumeros(event)");
                         break;
                     case 'email':
                         document.getElementById('valor_' + count).type = 'email'
+                        document.getElementById('valor_' + count).focus()
+                        document.getElementById('valor_' + count).setAttribute("onkeypress", "return validoEmail(event)");
                         break;
                     case 'date':
                         document.getElementById('valor_' + count).type = 'date'
+                        ocument.getElementById('valor_' + count).focus()
+
                         break;
                     default:
                         document.getElementById('valor_' + count).type = 'text'
+                        document.getElementById('valor_' + count).focus()
+                        document.getElementById('valor_' + count).setAttribute("onkeypress", "return validoLetrasNumeros(event)");
+                        
+                        
                         break;
                 }
             }
@@ -308,6 +313,23 @@
             key = e.keyCode || e.which;
             tecla = String.fromCharCode(key).toLowerCase();
             letras = "abcdefghijklmnopqrstuvwxyz";
+            especiales = [];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+        function validoLetrasNumeros(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = "abcdefghijklmnopqrstuvwxyz123456789-";
             especiales = [];
 
             tecla_especial = false
